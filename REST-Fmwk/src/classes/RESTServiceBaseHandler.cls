@@ -61,29 +61,26 @@ public virtual with sharing class RESTServiceBaseHandler{
         mRequestURLInfo = RESTRequestURLParser.parse(mRequest, pBaseResource);
     }
 
-    /* Methods for Http Requests */
+    /* Methods for Http Requests - to be defined in derived classes */
     //GET
     public virtual void fetchRecords(){
         invalidRequest();
     }
-    
     //POST
     public virtual void createRecords(){
         invalidRequest();
     }
-    
     //PATCH
     public virtual void updateRecords(){
         invalidRequest();
     }
-    
     //DELETE
     public virtual void deleteRecords(){
         invalidRequest();
     }
     
     private void invalidRequest(){
-        addError(Label.Invalid_Rest_Action);
+        addError(RESTConstants.REQUEST_ACTION_NOT_SUPPORTED);
         setErrorResponse(RESTConstants.HTTP_BAD_REQUEST);
     }
     
@@ -124,7 +121,7 @@ public virtual with sharing class RESTServiceBaseHandler{
     }
     
     public void logMessage(String pMsg){
-        System.debug(loggingLevel.ERROR, pMsg);
+        System.debug(loggingLevel.DEBUG, pMsg);
     }
     
 }
