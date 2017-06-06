@@ -22,12 +22,12 @@
 public virtual class RESTRequestInfo {
 
     public String baseResource {get; set;}
-    public Map<Integer, String> resourceValueMap {get; set;}
+    public Map<Integer, String> resourceIndexValueMap {get; set;}
     public Map<String, String> requestParamsMap {get; set;}
         
     public RESTRequestInfo(String pBaseResource) {
         baseResource = pBaseResource;
-        resourceValueMap = new Map<Integer, String>();
+        resourceIndexValueMap = new Map<Integer, String>();
         requestParamsMap = new Map<String, String>();
     }
     
