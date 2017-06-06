@@ -19,26 +19,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-public class RESTRequestParser {
+public class RESTRequestURLParser {
 
-    public static RESTRequestInfo parseRequest(RestRequest pRequest, String pBaseResource) {
-        System.debug(loggingLevel.ERROR, '--- REST Request URI : ' + pRequest.requestURI);
-        System.debug(loggingLevel.ERROR, '--- Base Resource : ' + pBaseResource);
-        
+    public static RESTRequestURLInfo parse(RestRequest pRequest, String pBaseResource) {
         if(String.isBlank(pRequest.requestURI) || String.isBlank(pBaseResource)) return null; 
 
-        RESTRequestInfo requestInfo = new RESTRequestInfo(pBaseResource);
-        requestInfo.requestParamsMap = pRequest.params;
-        requestInfo.resourceValueMap = getResourceValueMap(pRequest.requestURI, pBaseResource);
-        System.debug(loggingLevel.ERROR, '--- <<OUTPUT>> Request Info : ' + requestInfo);
-        return requestInfo;
+        RESTRequestURLInfo urlInfo = new RESTRequestURLInfo(pBaseResource);
+        urlInfo.requestParamsMap = pRequest.params;
+        urlInfo.resourceIndexValueMap = getResourceIndexValueMap(pRequest.requestURI, pBaseResource);
+        
+        return urlInfo;
     }
     
-    public static Map<Integer, String> getResourceValueMap(String pRequestURI, String pBaseResource){
+    public static Map<Integer, String> getResourceIndexValueMap(String pRequestURI, String pBaseResource){
         String extendedResource = pRequestURI.toLowerCase().substringAfter(pBaseResource.toLowerCase());
-        System.debug(loggingLevel.ERROR, '--- Extended Resource : ' + extendedResource);
-
-        Map<Integer, String> resourceValueMap = new Map<Integer, String>();
+        
+        Map<Integer, String> resourceIndexValueMap = new Map<Integer, String>();
         
         if (String.isNotBlank(extendedResource) && extendedResource.startsWith('/')){
             Integer resourceIdx = 0;
@@ -47,18 +43,15 @@ public class RESTRequestParser {
                 String resourceVal = extendedResource.substringBefore('/');
                     
                 if (String.isNotBlank(resourceVal)){
-                    System.debug(loggingLevel.ERROR, '--- Resource Index : ' + resourceIdx);
-                    System.debug(loggingLevel.ERROR, '--- Resource Value : ' + resourceVal);
-                    resourceValueMap.put(resourceIdx, resourceVal);
+                    resourceIndexValueMap.put(resourceIdx, resourceVal);
                     resourceIdx++;
                 }
                     
                 extendedResource = extendedResource.substringAfter(resourceVal);
-                System.debug(loggingLevel.ERROR, '--- Remaining Extended Resource : ' + extendedResource);
             }
         } 
         
-        return resourceValueMap;
+        return resourceIndexValueMap;
     }
     
 }
