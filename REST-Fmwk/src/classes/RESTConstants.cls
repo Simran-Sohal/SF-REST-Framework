@@ -40,4 +40,6 @@ public class RESTConstants {
     public static final String STATUS_SUCCESS = 'Success';
     public static final String STATUS_ERROR = 'Error';
 
+    //Error Messages
+    public static final String REQUEST_NOT_SUPPORTED = 'Http {0} request is not supported for this service.';
 }
