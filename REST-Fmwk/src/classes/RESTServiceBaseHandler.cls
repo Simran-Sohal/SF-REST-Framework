@@ -64,23 +64,23 @@ public virtual with sharing class RESTServiceBaseHandler{
     /* Methods for Http Requests - to be defined in derived classes */
     //GET
     public virtual void fetchRecords(){
-        invalidRequest();
+        invalidRequest(RESTConstants.HTTP_GET);
     }
     //POST
     public virtual void createRecords(){
-        invalidRequest();
+        invalidRequest(RESTConstants.HTTP_POST);
     }
     //PATCH
     public virtual void updateRecords(){
-        invalidRequest();
+        invalidRequest(RESTConstants.HTTP_PATCH);
     }
     //DELETE
     public virtual void deleteRecords(){
-        invalidRequest();
+        invalidRequest(RESTConstants.HTTP_DELETE);
     }
     
-    private void invalidRequest(){
-        addError(RESTConstants.REQUEST_ACTION_NOT_SUPPORTED);
+    private void invalidRequest(String pRequestType){
+        addError(String.format(RESTConstants.REQUEST_NOT_SUPPORTED, new List<String>{pRequestType}));
         setErrorResponse(RESTConstants.HTTP_BAD_REQUEST);
     }
     
