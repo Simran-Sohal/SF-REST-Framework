@@ -48,9 +48,9 @@ public virtual with sharing class RESTServiceBaseHandler{
     
     /*
      * !!! IMPORTANT !!!
-     * The derived class of this base class should class this 
-     * method to parse the RestRequest as per the base resource
-     * of the service and populate RESTRequestInfo.
+     * The derived class should call this method to parse the 
+     * RestRequest as per the base resource of the service and
+     * populate RESTRequestInfo.
      *
      * The base resource should not have '/' at the end of 
      * the resource URL
