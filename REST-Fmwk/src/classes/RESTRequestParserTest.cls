@@ -20,38 +20,40 @@
  * SOFTWARE.
  **/
 @isTest
-private class RESTRequestParserTest {
+private class RESTRequestURLParserTest {
 
     @isTest
-    private static void testRequestParser(){
+    private static void testRequestURLParser(){
         RestRequest req = new RestRequest();
-        req.requestURI = '/services/apexrest/crm/v1/accounts/12345';
+        req.requestURI = '/services/apexrest/crm/v1/accounts/12345/status';
         String baseResource = '/crm/v1/accounts';
         
         Test.startTest();
 
-        RESTRequestInfo reqInfo = RESTRequestParser.parseRequest(req, baseResource);
+        RESTRequestURLInfo reqInfo = RESTRequestURLParser.parse(req, baseResource);
         System.assertEquals(baseResource, reqInfo.baseResource, 'Base Resource matches');
         System.assertEquals(0, reqInfo.requestParamsMap.size(), 'Request Parameters map size');
-        System.assertEquals(1, reqInfo.resourceValueMap.size(), 'Resource value map size');
-        System.assertEquals('12345', reqInfo.resourceValueMap.get(0), 'First Resource value matches');
+        System.assertEquals(2, reqInfo.resourceIndexValueMap.size(), 'Resource Index value map size');
+        System.assertEquals('12345', reqInfo.resourceIndexValueMap.get(0), 'First Resource value matches');
+        System.assertEquals('status', reqInfo.resourceIndexValueMap.get(1), 'Second Resource value matches');
         
         Test.stopTest();
     }
 
     @isTest
-    private static void testRequestParser_DoubleBackslash(){
+    private static void testRequestURLParser_DoubleBackslash(){
         RestRequest req = new RestRequest();
-        req.requestURI = '/services/apexrest/crm/v1/accounts//12345/';
+        req.requestURI = '/services/apexrest/crm/v1/accounts//12345/status/';
         String baseResource = '/crm/v1/accounts';
         
         Test.startTest();
 
-        RESTRequestInfo reqInfo = RESTRequestParser.parseRequest(req, baseResource);
+        RESTRequestURLInfo reqInfo = RESTRequestURLParser.parse(req, baseResource);
         System.assertEquals(baseResource, reqInfo.baseResource, 'Base Resource matches');
         System.assertEquals(0, reqInfo.requestParamsMap.size(), 'Request Parameters map size');
-        System.assertEquals(1, reqInfo.resourceValueMap.size(), 'Resource value map size');
-        System.assertEquals('12345', reqInfo.resourceValueMap.get(0), 'First Resource value matches');
+        System.assertEquals(2, reqInfo.resourceIndexValueMap.size(), 'Resource Index value map size');
+        System.assertEquals('12345', reqInfo.resourceIndexValueMap.get(0), 'First Resource value matches');
+        System.assertEquals('status', reqInfo.resourceIndexValueMap.get(1), 'Second Resource value matches');
         
         Test.stopTest();
     }
