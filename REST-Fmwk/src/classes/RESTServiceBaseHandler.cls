@@ -19,13 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-/* 
- * Class   : RESTServiceBaseHandler
- * Purpose : Base class for all REST Service handler classes
- *           and has default implementation of the relevant 
- *           methods for the REST actions
- * Author  : Simran Singh
- */
 public virtual with sharing class RESTServiceBaseHandler{
 
     private String mServiceVersion;
