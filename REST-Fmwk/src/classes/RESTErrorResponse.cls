@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  **/
-public class RESTErrorResponse{
+public virtual class RESTErrorResponse{
     public String requestStatus {get; set;}
     public Datetime responseDateTime {get; set;}
     public List<ErrorInfo> errorInfoList {get; set;}
